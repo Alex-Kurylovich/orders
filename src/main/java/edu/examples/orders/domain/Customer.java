@@ -1,0 +1,50 @@
+package edu.examples.orders.domain;
+
+import lombok.Data;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.validation.constraints.NotNull;
+
+@Entity
+@Data
+public class Customer {
+
+    @Id
+    @Column
+    private long id;
+
+    @Column
+    @NotNull(message="{NotNull.Customer.firstName}")
+    private String firstName;
+
+    @Column
+    @NotNull(message="{NotNull.Customer.lastName}")
+    private String lastName;
+
+    @Column
+    @NotNull(message="{NotNull.Customer.email}")
+    private String email;
+
+    @Column
+    @NotNull(message="{NotNull.Customer.phone}")
+    private String phone;
+
+    @Column
+    @NotNull(message="{NotNull.Customer.street}")
+    private String street;
+
+    @Column
+    @NotNull(message="{NotNull.Customer.city}")
+    private String city;
+
+    @Column
+    @NotNull(message="{NotNull.Customer.province}")
+    private String province;
+
+    @Column
+    @NotNull(message="{NotNull.Customer.zipCode}")
+    private String zipCode;
+
+}
