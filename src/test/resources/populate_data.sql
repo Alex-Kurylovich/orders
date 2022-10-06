@@ -1,4 +1,4 @@
-INSERT INTO user (ID, FIRST_NAME, LAST_NAME, EMAIL, PHONE, ROLE, STATUS)
+INSERT INTO staff (ID, FIRST_NAME, LAST_NAME, EMAIL, PHONE, ROLE, STATUS)
 VALUES (1, 'Pam', 'Martinez', 'manager1@gmail.com', '416-1122-1371', 'manager', 'active'),
        (2, 'Maria', 'Barnes', 'agent1@gmail.com', '416-1122-1372', 'agent', 'active'),
        (3, 'Brandon', 'Charles', 'technician1@gmail.com', '416-1122-1373', 'technician', 'active'),

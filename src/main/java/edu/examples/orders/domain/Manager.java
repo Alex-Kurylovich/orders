@@ -7,7 +7,7 @@ import javax.persistence.Entity;
 
 @Entity
 @Data
-public class Manager extends User {
+public class Manager extends Staff {
 
     @Column
     private String details;

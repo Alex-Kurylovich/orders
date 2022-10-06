@@ -1,7 +1,7 @@
 package edu.examples.orders.api.rest.controller;
 
 import edu.examples.orders.domain.Agent;
-import edu.examples.orders.domain.User;
+import edu.examples.orders.domain.Staff;
 import edu.examples.orders.service.UserService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,34 +31,34 @@ public class UserController {
 	@GetMapping(path = ApiLinks.LIST_USERS)
     public ResponseEntity<?> listUsers() {
         log.info("UsersController:  list users");
-        List<User> resource = usersService.getUsers();
+        List<Staff> resource = usersService.getUsers();
         return ResponseEntity.ok(resource);
     }
 	
 	@PostMapping(path = ApiLinks.ADD_USER)
-	public ResponseEntity<?> saveUser(@RequestBody User user) {
-        log.info("UsersController:  add user");
-        User resource = usersService.saveUser(user);
+	public ResponseEntity<?> saveUser(@RequestBody Staff staff) {
+        log.info("UsersController:  add staff");
+        Staff resource = usersService.saveUser(staff);
         return ResponseEntity.ok(resource);
     }
 
     @GetMapping(path = ApiLinks.LIST_USERS_MANAGER)
     public ResponseEntity<?> listUsersManager() {
         log.info("UsersController:  list users");
-        List<User> resource = (List<User>) usersService.findAllUserManager();
+        List<Staff> resource = (List<Staff>) usersService.findAllUserManager();
         return ResponseEntity.ok(resource);
     }
     @GetMapping(path = ApiLinks.LIST_USERS_AGENT)
     public ResponseEntity<?> listUsersAgent() {
         log.info("UsersController:  list users");
-        List<User> resource = (List<User>) usersService.findAllUserAgent();
+        List<Staff> resource = (List<Staff>) usersService.findAllUserAgent();
         return ResponseEntity.ok(resource);
     }
 
     @GetMapping(path = ApiLinks.LIST_USERS_TECHNICIAN)
     public ResponseEntity<?> listUsersTechnician() {
         log.info("UsersController:  list users");
-        List<User> resource = (List<User>) usersService.findAllUserTechnician();
+        List<Staff> resource = (List<Staff>) usersService.findAllUserTechnician();
         return ResponseEntity.ok(resource);
     }
 

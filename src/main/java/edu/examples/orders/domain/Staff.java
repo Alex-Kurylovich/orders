@@ -11,33 +11,34 @@ import lombok.Data;
 @Inheritance(strategy = InheritanceType.JOINED)
 @JsonIgnoreProperties(ignoreUnknown = true)
 @Data
-public class User {
+public class Staff {
 	
 	@Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column
     private long id;
 
     @Column
-    @NotNull(message="{NotNull.User.firstName}")
+    @NotNull(message="{NotNull.Staff.firstName}")
     private String firstName;
     
     @Column
-    @NotNull(message="{NotNull.User.lastName}")
+    @NotNull(message="{NotNull.Staff.lastName}")
     private String lastName;
     
     @Column
-    @NotNull(message="{NotNull.User.email}")
+    @NotNull(message="{NotNull.Staff.email}")
     private String email;
 
     @Column
-    @NotNull(message="{NotNull.User.phone}")
+    @NotNull(message="{NotNull.Staff.phone}")
     private String phone;
 
     @Column
-    @NotNull(message="{NotNull.User.role}")
+    @NotNull(message="{NotNull.Staff.role}")
     private String role;
 
     @Column
-    @NotNull(message="{NotNull.User.status}")
+    @NotNull(message="{NotNull.Staff.status}")
     private String status;
 }

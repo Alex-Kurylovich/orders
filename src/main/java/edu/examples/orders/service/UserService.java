@@ -1,21 +1,21 @@
 package edu.examples.orders.service;
 
 import edu.examples.orders.domain.Agent;
-import edu.examples.orders.domain.User;
+import edu.examples.orders.domain.Staff;
 
 import java.util.List;
 
 public interface UserService {
 
-    List<User> getUsers();
+    List<Staff> getUsers();
 
-    User saveUser(User user);
+    Staff saveUser(Staff staff);
 
-    List<User>  findAllUserManager();
+    List<Staff>  findAllUserManager();
 
-    List<User>  findAllUserAgent();
+    List<Staff>  findAllUserAgent();
 
-    List<User>  findAllUserTechnician();
+    List<Staff>  findAllUserTechnician();
 
     List<Agent>  findAllAgent();
 }

@@ -1,7 +1,7 @@
 package edu.examples.orders;
 
 import edu.examples.orders.domain.Agent;
-import edu.examples.orders.domain.User;
+import edu.examples.orders.domain.Staff;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Test;
@@ -45,13 +45,13 @@ public class UsersApplicationTests {
                 .andReturn();
         String resulAsString = result.getResponse().getContentAsString();
         ObjectMapper objectMapper = new ObjectMapper();
-        List<User> data = objectMapper.readValue(resulAsString, new TypeReference<List<User>>(){});
+        List<Staff> data = objectMapper.readValue(resulAsString, new TypeReference<List<Staff>>(){});
         assertTrue(data.size() == 4);
     }
 
     @Test
     public void testSaveUser() throws Exception {
-        User request = new User();
+        Staff request = new Staff();
         request.setId(5);
         request.setFirstName("Justin");
         request.setLastName("Wright");
@@ -85,7 +85,7 @@ public class UsersApplicationTests {
                 .andReturn();
         String resulAsString = result.getResponse().getContentAsString();
         ObjectMapper objectMapper = new ObjectMapper();
-        List<User> data = objectMapper.readValue(resulAsString, new TypeReference<List<User>>(){});
+        List<Staff> data = objectMapper.readValue(resulAsString, new TypeReference<List<Staff>>(){});
         assertTrue(data.size() == 1);
     }
 
@@ -99,7 +99,7 @@ public class UsersApplicationTests {
                 .andReturn();
         String resulAsString = result.getResponse().getContentAsString();
         ObjectMapper objectMapper = new ObjectMapper();
-        List<User> data = objectMapper.readValue(resulAsString, new TypeReference<List<User>>(){});
+        List<Staff> data = objectMapper.readValue(resulAsString, new TypeReference<List<Staff>>(){});
         assertTrue(data.size() == 1);
     }
 
@@ -113,7 +113,7 @@ public class UsersApplicationTests {
                 .andReturn();
         String resulAsString = result.getResponse().getContentAsString();
         ObjectMapper objectMapper = new ObjectMapper();
-        List<User> data = objectMapper.readValue(resulAsString, new TypeReference<List<User>>(){});
+        List<Staff> data = objectMapper.readValue(resulAsString, new TypeReference<List<Staff>>(){});
         assertTrue(data.size() == 2);
     }
 

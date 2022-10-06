@@ -1,7 +1,7 @@
 package edu.examples.orders.service.impl;
 
 import edu.examples.orders.domain.Agent;
-import edu.examples.orders.domain.User;
+import edu.examples.orders.domain.Staff;
 import edu.examples.orders.repository.UserRepository;
 import edu.examples.orders.service.UserService;
 import org.springframework.stereotype.Component;
@@ -17,23 +17,23 @@ public class UserServiceImpl implements UserService {
         this.userRepository = userRepository;
     }
 
-    public List<User> getUsers() {
+    public List<Staff> getUsers() {
         return userRepository.findAll();
     }
     
-    public User saveUser(User user) {
-    	return userRepository.save(user);
+    public Staff saveUser(Staff staff) {
+    	return userRepository.save(staff);
     }
 
-    public List<User>  findAllUserManager() {
+    public List<Staff>  findAllUserManager() {
         return userRepository.findAllUserManager();
     }
 
-    public List<User>  findAllUserAgent() {
+    public List<Staff>  findAllUserAgent() {
         return userRepository.findAllUserAgent();
     }
 
-    public List<User>  findAllUserTechnician() {
+    public List<Staff>  findAllUserTechnician() {
         return userRepository.findAllUserTechnician();
     }
 

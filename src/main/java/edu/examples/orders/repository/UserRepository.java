@@ -1,25 +1,23 @@
 package edu.examples.orders.repository;
 
 import edu.examples.orders.domain.Agent;
-import edu.examples.orders.domain.User;
+import edu.examples.orders.domain.Staff;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.querydsl.QuerydslPredicateExecutor;
-import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 
 import java.util.List;
 
-@RepositoryRestResource()
-public interface UserRepository extends JpaRepository<User, Integer>, JpaSpecificationExecutor<User>, QuerydslPredicateExecutor<User> {
-    @Query("SELECT u FROM User u WHERE u.role='manager'")
-    List<User> findAllUserManager();
+public interface UserRepository extends JpaRepository<Staff, Integer>, JpaSpecificationExecutor<Staff>, QuerydslPredicateExecutor<Staff> {
+    @Query("SELECT u FROM Staff u WHERE u.role='manager'")
+    List<Staff> findAllUserManager();
 
-    @Query("SELECT u FROM User u WHERE u.role='agent'")
-    List<User> findAllUserAgent();
+    @Query("SELECT u FROM Staff u WHERE u.role='agent'")
+    List<Staff> findAllUserAgent();
 
-    @Query("SELECT u FROM User u WHERE u.role='technician'")
-    List<User> findAllUserTechnician();
+    @Query("SELECT u FROM Staff u WHERE u.role='technician'")
+    List<Staff> findAllUserTechnician();
 
     @Query("SELECT a FROM Agent a")
     List<Agent> findAllAgent();
