@@ -1,9 +1,9 @@
 package edu.examples.orders;
 
-import edu.examples.orders.domain.Agent;
-import edu.examples.orders.domain.Staff;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import edu.examples.orders.domain.Customer;
+import edu.examples.orders.domain.Staff;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -28,17 +28,16 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @AutoConfigureMockMvc
 @Transactional
 @TestPropertySource(locations = {"classpath:test.properties"})
-@Sql({"/populate_data.sql"})
-public class UsersApplicationTests {
-
+@Sql({"/populate_data_mvc.sql"})
+public class OrdersApplicationTests {
 
     @Autowired
     MockMvc mockMvc;
 
     @Test
-    public void testListUsers() throws Exception {
+    public void testListStaff() throws Exception {
         MvcResult result = mockMvc.perform(
-                        MockMvcRequestBuilders.get("/api/users")
+                        MockMvcRequestBuilders.get("/api/staff-list")
                                 .characterEncoding(UTF_8.toString()))
                 .andDo(print())
                 .andExpect(status().isOk())
@@ -46,13 +45,12 @@ public class UsersApplicationTests {
         String resulAsString = result.getResponse().getContentAsString();
         ObjectMapper objectMapper = new ObjectMapper();
         List<Staff> data = objectMapper.readValue(resulAsString, new TypeReference<List<Staff>>(){});
-        assertTrue(data.size() == 4);
+        assertTrue(data.size() > 0);
     }
 
     @Test
-    public void testSaveUser() throws Exception {
+    public void testAddStaff() throws Exception {
         Staff request = new Staff();
-        request.setId(5);
         request.setFirstName("Justin");
         request.setLastName("Wright");
         request.setEmail("abc4@gmail.com");
@@ -63,7 +61,7 @@ public class UsersApplicationTests {
         ObjectMapper objectMapper = new ObjectMapper();
         String body = objectMapper.writeValueAsString(request);
 
-        MvcResult result = mockMvc.perform(MockMvcRequestBuilders.post("/api/user")
+        MvcResult result = mockMvc.perform(MockMvcRequestBuilders.post("/api/staff-add")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(body))
                 .andDo(print())
@@ -76,9 +74,9 @@ public class UsersApplicationTests {
     }
 
     @Test
-    public void testListUsersManager() throws Exception {
+    public void testFindManagers() throws Exception {
         MvcResult result = mockMvc.perform(
-                        MockMvcRequestBuilders.get("/api/users/manager")
+                        MockMvcRequestBuilders.get("/api/managers-list")
                                 .characterEncoding(UTF_8.toString()))
                 .andDo(print())
                 .andExpect(status().isOk())
@@ -86,13 +84,13 @@ public class UsersApplicationTests {
         String resulAsString = result.getResponse().getContentAsString();
         ObjectMapper objectMapper = new ObjectMapper();
         List<Staff> data = objectMapper.readValue(resulAsString, new TypeReference<List<Staff>>(){});
-        assertTrue(data.size() == 1);
+        assertTrue(data.size() > 0);
     }
 
     @Test
-    public void testListUsersAgent() throws Exception {
+    public void testFindAgents() throws Exception {
         MvcResult result = mockMvc.perform(
-                        MockMvcRequestBuilders.get("/api/users/agent")
+                        MockMvcRequestBuilders.get("/api/agents-list")
                                 .characterEncoding(UTF_8.toString()))
                 .andDo(print())
                 .andExpect(status().isOk())
@@ -100,13 +98,13 @@ public class UsersApplicationTests {
         String resulAsString = result.getResponse().getContentAsString();
         ObjectMapper objectMapper = new ObjectMapper();
         List<Staff> data = objectMapper.readValue(resulAsString, new TypeReference<List<Staff>>(){});
-        assertTrue(data.size() == 1);
+        assertTrue(data.size() > 0);
     }
 
     @Test
-    public void testListUsersTechnician() throws Exception {
+    public void testFindTechnicians() throws Exception {
         MvcResult result = mockMvc.perform(
-                        MockMvcRequestBuilders.get("/api/users/technician")
+                        MockMvcRequestBuilders.get("/api/technicians-list")
                                 .characterEncoding(UTF_8.toString()))
                 .andDo(print())
                 .andExpect(status().isOk())
@@ -114,20 +112,47 @@ public class UsersApplicationTests {
         String resulAsString = result.getResponse().getContentAsString();
         ObjectMapper objectMapper = new ObjectMapper();
         List<Staff> data = objectMapper.readValue(resulAsString, new TypeReference<List<Staff>>(){});
-        assertTrue(data.size() == 2);
+        assertTrue(data.size() > 0);
     }
 
     @Test
-    public void testFindAgent() throws Exception {
+    public void testListCustomers() throws Exception {
         MvcResult result = mockMvc.perform(
-                        MockMvcRequestBuilders.get("/api/agent")
+                        MockMvcRequestBuilders.get("/api/customers-list")
                                 .characterEncoding(UTF_8.toString()))
                 .andDo(print())
                 .andExpect(status().isOk())
                 .andReturn();
         String resulAsString = result.getResponse().getContentAsString();
         ObjectMapper objectMapper = new ObjectMapper();
-        List<Agent> data = objectMapper.readValue(resulAsString, new TypeReference<List<Agent>>(){});
-        assertTrue(data.size() == 1);
+        List<Customer> data = objectMapper.readValue(resulAsString, new TypeReference<List<Customer>>(){});
+        assertTrue(data.size() > 0);
+    }
+
+    @Test
+    public void testSaveCustomer() throws Exception {
+        Customer request = new Customer();
+        request.setFirstName("Paula");
+        request.setLastName("Reyes");
+        request.setEmail("customer5@gmail.com");
+        request.setPhone("647-220-0985");
+        request.setStreet("2307 Islington Ave");
+        request.setCity("Toronto");
+        request.setProvince("Ontario");
+        request.setZipCode("M8V3B6");
+
+        ObjectMapper objectMapper = new ObjectMapper();
+        String body = objectMapper.writeValueAsString(request);
+
+        MvcResult result = mockMvc.perform(MockMvcRequestBuilders.post("/api/customer-add")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(body))
+                .andDo(print())
+                .andExpect(status().isOk())
+                .andReturn();
+
+        String resultString = result.getResponse().getContentAsString();
+
+        assertNotNull(resultString);
     }
 }
