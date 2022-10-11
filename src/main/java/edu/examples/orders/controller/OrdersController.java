@@ -5,6 +5,7 @@ import edu.examples.orders.domain.Staff;
 import edu.examples.orders.service.OrdersService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -33,7 +34,7 @@ public class OrdersController {
 
     // Staff requests
 
-	@GetMapping(path = URL_STAFF_LIST)
+	@GetMapping(path = URL_STAFF_LIST, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<?> listStaff() {
         log.info("OrdersController: list all staff");
         List<Staff> resource = ordersService.getStaff();
@@ -69,14 +70,14 @@ public class OrdersController {
 
     // Customer requests
 
-    @GetMapping(path = URL_CUSTOMERS_LIST)
+    @GetMapping(path = URL_CUSTOMERS_LIST, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<?> listCustomers() {
         log.info("AgentController:  list customers");
         List<Customer> resource = ordersService.getCustomers();
         return ResponseEntity.ok(resource);
     }
 
-    @PostMapping(path = URL_CUSTOMER_ADD)
+    @PostMapping(path = URL_CUSTOMER_ADD, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<?> saveCustomer(@RequestBody Customer customer) {
         log.info("AgentController:  add customer");
         Customer resource = ordersService.saveCustomer(customer);

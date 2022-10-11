@@ -11,9 +11,10 @@
         <appender-ref ref="CONSOLE" />
     </root>
 
-    <logger name="org.springframework" level="warn" />
-    <logger name="edu.examples.orders" level="debug" />
+    <logger name="org.springframework" level="info" />
+    <logger name="springfox.documentation" level="info" />
     <logger name="org.hibernate" level="warn" />
+    <logger name="edu.examples.orders" level="debug" />
 
 </configuration>
 

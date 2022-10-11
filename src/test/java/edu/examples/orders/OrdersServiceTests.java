@@ -5,6 +5,7 @@ import edu.examples.orders.domain.Manager;
 import edu.examples.orders.domain.Staff;
 import edu.examples.orders.domain.Technician;
 import edu.examples.orders.service.OrdersService;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -18,6 +19,7 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 @SpringBootTest
+@Disabled
 @AutoConfigureMockMvc
 @Transactional
 @TestPropertySource(locations = {"classpath:test.properties"})
