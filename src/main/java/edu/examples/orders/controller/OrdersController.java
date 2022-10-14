@@ -1,7 +1,6 @@
 package edu.examples.orders.controller;
 
-import edu.examples.orders.domain.Customer;
-import edu.examples.orders.domain.Staff;
+import edu.examples.orders.domain.*;
 import edu.examples.orders.service.OrdersService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,9 +16,11 @@ import java.util.List;
 public class OrdersController {
 
     public static final String URL_STAFF_LIST = "/staff-list";
-    public static final String URL_STAFF_ADD = "/staff-add";
+    public static final String URL_MANAGER_SAVE = "/manager-save";
+    public static final String URL_AGENT_SAVE = "/agent-save";
+    public static final String URL_TECHNICIAN_SAVE = "/technician-save";
     public static final String URL_CUSTOMERS_LIST = "/customers-list";
-    public static final String URL_CUSTOMER_ADD = "/customer-add";
+    public static final String URL_CUSTOMER_SAVE = "/customer-save";
 
     public static final String URL_MANAGERS_LIST = "/managers-list";
     public static final String URL_AGENTS_LIST = "/agents-list";
@@ -41,30 +42,45 @@ public class OrdersController {
         return ResponseEntity.ok(resource);
     }
 	
-	@PostMapping(path = URL_STAFF_ADD)
-	public ResponseEntity<?> saveStaff(@RequestBody Staff staff) {
-        log.info("OrdersController: add staff");
-        Staff resource = ordersService.saveStaff(staff);
+    @PostMapping(path = URL_MANAGER_SAVE, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<?> saveManager(@RequestBody Manager staff) {
+        log.info("OrdersController: save Manager");
+        Manager resource = ordersService.saveStaff(staff);
         return ResponseEntity.ok(resource);
     }
 
-    @GetMapping(path = URL_MANAGERS_LIST)
-    public ResponseEntity<?> listManagers() {
-        log.info("OrdersController:  list managers");
-        List<Staff> resource = (List<Staff>) ordersService.findManagers();
+    @PostMapping(path = URL_AGENT_SAVE, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<?> saveAgent(@RequestBody Agent staff) {
+        log.info("OrdersController: save Agent");
+        Agent resource = ordersService.saveStaff(staff);
         return ResponseEntity.ok(resource);
     }
-    @GetMapping(path = URL_AGENTS_LIST)
+
+    @PostMapping(path = URL_TECHNICIAN_SAVE, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<?> saveTechnician(@RequestBody Technician staff) {
+        log.info("OrdersController: add Technician");
+        Technician resource = ordersService.saveStaff(staff);
+        return ResponseEntity.ok(resource);
+    }
+
+    @GetMapping(path = URL_AGENTS_LIST, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<?> listAgents() {
         log.info("OrdersController:  list agents");
-        List<Staff> resource = (List<Staff>) ordersService.findAgents();
+        List<Agent> resource = ordersService.getAgents();
         return ResponseEntity.ok(resource);
     }
 
-    @GetMapping(path = URL_TECHNICIANS_LIST)
+    @GetMapping(path = URL_MANAGERS_LIST, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<?> listManagers() {
+        log.info("OrdersController:  list managers");
+        List<Manager> resource = ordersService.getManagers();
+        return ResponseEntity.ok(resource);
+    }
+
+    @GetMapping(path = URL_TECHNICIANS_LIST, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<?> listTechnicians() {
         log.info("OrdersController:  list technicians");
-        List<Staff> resource = (List<Staff>) ordersService.findTechnicians();
+        List<Technician> resource = ordersService.getTechnicians();
         return ResponseEntity.ok(resource);
     }
 
@@ -77,7 +93,7 @@ public class OrdersController {
         return ResponseEntity.ok(resource);
     }
 
-    @PostMapping(path = URL_CUSTOMER_ADD, produces = MediaType.APPLICATION_JSON_VALUE)
+    @PostMapping(path = URL_CUSTOMER_SAVE, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<?> saveCustomer(@RequestBody Customer customer) {
         log.info("AgentController:  add customer");
         Customer resource = ordersService.saveCustomer(customer);

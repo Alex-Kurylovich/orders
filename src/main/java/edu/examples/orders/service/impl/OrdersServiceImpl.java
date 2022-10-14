@@ -1,10 +1,10 @@
 package edu.examples.orders.service.impl;
 
-import edu.examples.orders.domain.Customer;
-import edu.examples.orders.domain.Staff;
+import edu.examples.orders.domain.*;
 import edu.examples.orders.repository.CustomerRepository;
 import edu.examples.orders.repository.StaffRepository;
 import edu.examples.orders.service.OrdersService;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -21,23 +21,23 @@ public class OrdersServiceImpl implements OrdersService {
     }
 
     public List<Staff> getStaff() {
-        return staffRepository.findAll();
+        return staffRepository.findAll(Sort.by(Sort.Direction.ASC, "role"));
+    }
+
+    public List<Agent>  getAgents() {
+        return staffRepository.getAgents();
+    }
+
+    public List<Manager> getManagers() {
+        return staffRepository.getManagers();
+    }
+
+    public List<Technician>  getTechnicians() {
+        return staffRepository.getTechnicians();
     }
 
     public Staff saveStaff(Staff staff) {
         return staffRepository.save(staff);
-    }
-
-    public List<Staff>  findManagers() {
-        return staffRepository.findManagers();
-    }
-
-    public List<Staff>  findAgents() {
-        return staffRepository.findAgents();
-    }
-
-    public List<Staff>  findTechnicians() {
-        return staffRepository.findTechnicians();
     }
 
     public List<Customer> getCustomers() {

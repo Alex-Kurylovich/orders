@@ -11,7 +11,7 @@ import lombok.Data;
 @Inheritance(strategy = InheritanceType.JOINED)
 @JsonIgnoreProperties(ignoreUnknown = true)
 @Data
-public class Staff {
+public abstract class Staff {
 	
 	@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

@@ -4,8 +4,9 @@ import edu.examples.orders.domain.Agent;
 import edu.examples.orders.domain.Manager;
 import edu.examples.orders.domain.Staff;
 import edu.examples.orders.domain.Technician;
+import edu.examples.orders.dto.StaffRole;
 import edu.examples.orders.service.OrdersService;
-import org.junit.jupiter.api.Disabled;
+import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -18,8 +19,8 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+@Slf4j
 @SpringBootTest
-@Disabled
 @AutoConfigureMockMvc
 @Transactional
 @TestPropertySource(locations = {"classpath:test.properties"})
@@ -30,57 +31,85 @@ public class OrdersServiceTests {
     private OrdersService ordersService;
 
     @Test
-    public void testServiceAddStaff() throws Exception {
-        Manager manager = createManager();
-        Staff result1 = ordersService.saveStaff(manager);
-        System.out.println(result1);
+    public void testServiceGetStaff() throws Exception {
+        List<Staff> staffs = ordersService.getStaff();
+        log.info(staffs.toString());
+        assertTrue(staffs.size() == 6);
 
-        Agent agent = createAgent();
-        Staff result2 = ordersService.saveStaff(agent);
-        System.out.println(result2);
+        List<Manager> managers = ordersService.getManagers();
+        log.info(managers.toString());
+        assertTrue(managers.size() == 1);
 
-        Technician technician = createTechnician();
-        Staff result3 = ordersService.saveStaff(technician);
-        System.out.println(result3);
+        List<Agent> agents = ordersService.getAgents();
+        log.info(agents.toString());
+        assertTrue(agents.size() == 2);
 
-        List<Staff> data = ordersService.getStaff();
-        System.out.println(data);
+        List<Technician> technicians = ordersService.getTechnicians();
+        log.info(technicians.toString());
+        assertTrue(technicians.size() == 3);
+    }
 
-        assertTrue(data.size() == 3);    }
+    @Test
+    public void testServiceSaveStaff() throws Exception {
+        Manager manager = ordersService.saveStaff(createManager());
+        log.info(manager.toString());
+
+        Agent agent = ordersService.saveStaff(createAgent());
+        log.info(agent.toString());
+
+        Technician technician = ordersService.saveStaff(createTechnician());
+        log.info(technician.toString());
+
+        List<Staff> staffs = ordersService.getStaff();
+        log.info(staffs.toString());
+        assertTrue(staffs.size() == 9);
+
+        List<Manager> managers = ordersService.getManagers();
+        log.info(managers.toString());
+        assertTrue(managers.size() == 2);
+
+        List<Agent> agents = ordersService.getAgents();
+        log.info(agents.toString());
+        assertTrue(agents.size() == 3);
+
+        List<Technician> technicians = ordersService.getTechnicians();
+        log.info(technicians.toString());
+        assertTrue(technicians.size() == 4);
+    }
 
     private Manager createManager() {
         Manager staff = new Manager();
-        staff.setFirstName("Pam");
-        staff.setLastName("Martinez");
-        staff.setEmail("manager1@gmail.com");
-        staff.setPhone("416-1122-1371");
-        staff.setRole("manager");
-        staff.setStatus("active");
-        staff.setDetails("Manager details");
+        staff.setFirstName("Martha");
+        staff.setLastName("Peck");
+        staff.setEmail("manager.martha@gmail.com");
+        staff.setPhone("416-5122-1371");
+        staff.setRole(StaffRole.MANAGER.name());
+        staff.setStatus("ACTIVE");
+        staff.setDetails("Manager details - Martha");
         return staff;
     }
 
     private Agent createAgent() {
         Agent staff = new Agent();
-        staff.setFirstName("Maria");
-        staff.setLastName("Barnes");
-        staff.setEmail("agent1@gmail.com");
-        staff.setPhone("416-1122-1372");
-        staff.setRole("agent");
-        staff.setStatus("active");
-        staff.setDetails("Agent details");
+        staff.setFirstName("Stephanie");
+        staff.setLastName("Hall");
+        staff.setEmail("agent.stephanie@gmail.com");
+        staff.setPhone("416-5122-1372");
+        staff.setRole(StaffRole.AGENT.name());
+        staff.setStatus("ACTIVE");
+        staff.setDetails("Agent details - Stephanie");
         return staff;
     }
 
     private Technician createTechnician() {
         Technician staff = new Technician();
-        staff.setFirstName("Brandon");
-        staff.setLastName("Charles");
-        staff.setEmail("technician1@gmail.com");
-        staff.setPhone("416-1122-1373");
-        staff.setRole("technician");
-        staff.setStatus("active");
-        staff.setDetails("Technician details");
+        staff.setFirstName("Danielle");
+        staff.setLastName("Golden");
+        staff.setEmail("technician.danielle@gmail.com");
+        staff.setPhone("416-5122-1373");
+        staff.setRole(StaffRole.TECHNICIAN.name());
+        staff.setStatus("ACTIVE");
+        staff.setDetails("Technician details - Danielle");
         return staff;
     }
 }

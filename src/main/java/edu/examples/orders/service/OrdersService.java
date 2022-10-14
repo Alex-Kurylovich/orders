@@ -1,21 +1,24 @@
 package edu.examples.orders.service;
 
-import edu.examples.orders.domain.Customer;
-import edu.examples.orders.domain.Staff;
+import edu.examples.orders.domain.*;
 
 import java.util.List;
 
 public interface OrdersService {
 
+    // Staff
+
     List<Staff> getStaff();
 
-    Staff saveStaff(Staff staff);
+    List<Agent>  getAgents();
 
-    List<Staff>  findManagers();
+    List<Manager> getManagers();
 
-    List<Staff>  findAgents();
+    List<Technician>  getTechnicians();
 
-    List<Staff>  findTechnicians();
+    <T extends Staff> T saveStaff(T entity);
+
+    // Customers
 
     List<Customer> getCustomers();
 
