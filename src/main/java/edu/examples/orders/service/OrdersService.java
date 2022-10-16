@@ -23,4 +23,6 @@ public interface OrdersService {
     List<Customer> getCustomers();
 
     Customer saveCustomer(Customer customer);
+
+    void saveAgentCustomer(Agent a, Customer c);
 }

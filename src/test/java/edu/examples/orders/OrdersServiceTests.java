@@ -1,9 +1,6 @@
 package edu.examples.orders;
 
-import edu.examples.orders.domain.Agent;
-import edu.examples.orders.domain.Manager;
-import edu.examples.orders.domain.Staff;
-import edu.examples.orders.domain.Technician;
+import edu.examples.orders.domain.*;
 import edu.examples.orders.dto.StaffRole;
 import edu.examples.orders.service.OrdersService;
 import lombok.extern.slf4j.Slf4j;
@@ -75,6 +72,24 @@ public class OrdersServiceTests {
         List<Technician> technicians = ordersService.getTechnicians();
         log.info(technicians.toString());
         assertTrue(technicians.size() == 4);
+    }
+
+    @Test
+    public void testServiceSaveAgentCustomer() throws Exception {
+        List<Agent> agents = ordersService.getAgents();
+        log.info(agents.toString());
+        log.info(String.valueOf("agents size: " + agents.size()));
+        log.info(String.valueOf("agent[0] customers size: " + agents.get(0).getCustomers().size()));
+
+        List<Customer> customers = ordersService.getCustomers();
+        log.info(customers.toString());
+        log.info(String.valueOf("customers size: " + customers.size()));
+
+        ordersService.saveAgentCustomer(agents.get(0), customers.get(1));
+
+        agents = ordersService.getAgents();
+        log.info(String.valueOf("agents size: " + agents.size()));
+        log.info(String.valueOf("agent[0] customers size: " + agents.get(0).getCustomers().size()));
     }
 
     private Manager createManager() {

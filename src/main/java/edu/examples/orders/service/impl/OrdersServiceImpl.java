@@ -12,7 +12,9 @@ import java.util.List;
 @Component
 public class OrdersServiceImpl implements OrdersService {
 
-	private StaffRepository staffRepository;
+    final
+    private StaffRepository staffRepository;
+    final
     private CustomerRepository customerRepository;
 
     public OrdersServiceImpl(StaffRepository staffRepository, CustomerRepository customerRepository) {
@@ -47,4 +49,13 @@ public class OrdersServiceImpl implements OrdersService {
     public Customer saveCustomer(Customer customer) {
         return customerRepository.save(customer);
     }
+
+    public void saveAgentCustomer(Agent a, Customer c) {
+        // add one to many
+        a.getCustomers().add(c);
+        // set many to one
+        c.setAgent(a);
+        customerRepository.save(c);
+    }
+
 }

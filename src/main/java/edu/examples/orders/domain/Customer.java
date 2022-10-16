@@ -1,10 +1,12 @@
 package edu.examples.orders.domain;
 
 import lombok.Data;
+import lombok.ToString;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
+@ToString
 @Entity
 @Data
 public class Customer {
@@ -46,4 +48,8 @@ public class Customer {
     @NotNull(message="{NotNull.Customer.zipCode}")
     private String zipCode;
 
+    @ToString.Exclude
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "agent_id", referencedColumnName = "id")
+    private Agent agent;
 }
