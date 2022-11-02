@@ -21,7 +21,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 @AutoConfigureMockMvc
 @Transactional
 @TestPropertySource(locations = {"classpath:test.properties"})
-@Sql({"/populate_data_srv.sql"})
+//@Sql({"/populate_data_srv.sql"})
 public class OrdersServiceTests {
 
     @Autowired

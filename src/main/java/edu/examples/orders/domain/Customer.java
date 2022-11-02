@@ -1,5 +1,6 @@
 package edu.examples.orders.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 import lombok.ToString;
 
@@ -49,6 +50,7 @@ public class Customer {
     private String zipCode;
 
     @ToString.Exclude
+    @JsonIgnore
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "agent_id", referencedColumnName = "id")
     private Agent agent;

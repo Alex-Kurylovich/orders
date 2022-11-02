@@ -31,7 +31,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @AutoConfigureMockMvc
 @Transactional
 @TestPropertySource(locations = {"classpath:test.properties"})
-@Sql({"/populate_data_mvc.sql"})
+//@Sql({"/populate_data_mvc.sql"})
 public class OrdersApplicationTests {
 
     @Autowired
