@@ -21,8 +21,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 
 import static java.nio.charset.StandardCharsets.UTF_8;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -46,7 +45,7 @@ public class OrdersApplicationTests {
         String resulAsString = result.getResponse().getContentAsString();
         ObjectMapper objectMapper = new ObjectMapper();
         List<?> data = objectMapper.readValue(resulAsString, new TypeReference<List<?>>(){});
-        assertTrue(data.size() > 0);
+        assertFalse(data.isEmpty());
     }
 
     @Test
@@ -111,7 +110,7 @@ public class OrdersApplicationTests {
         String resulAsString = result.getResponse().getContentAsString();
         ObjectMapper objectMapper = new ObjectMapper();
         List<Manager> data = objectMapper.readValue(resulAsString, new TypeReference<List<Manager>>(){});
-        assertTrue(data.size() > 0);
+        assertFalse(data.isEmpty());
     }
 
     @Test
@@ -125,7 +124,7 @@ public class OrdersApplicationTests {
         String resulAsString = result.getResponse().getContentAsString();
         ObjectMapper objectMapper = new ObjectMapper();
         List<Agent> data = objectMapper.readValue(resulAsString, new TypeReference<List<Agent>>(){});
-        assertTrue(data.size() > 0);
+        assertFalse(data.isEmpty());
     }
 
     @Test
@@ -139,7 +138,7 @@ public class OrdersApplicationTests {
         String resulAsString = result.getResponse().getContentAsString();
         ObjectMapper objectMapper = new ObjectMapper();
         List<Technician> data = objectMapper.readValue(resulAsString, new TypeReference<List<Technician>>(){});
-        assertTrue(data.size() > 0);
+        assertFalse(data.isEmpty());
     }
 
     @Test
@@ -153,7 +152,7 @@ public class OrdersApplicationTests {
         String resulAsString = result.getResponse().getContentAsString();
         ObjectMapper objectMapper = new ObjectMapper();
         List<Customer> data = objectMapper.readValue(resulAsString, new TypeReference<List<Customer>>(){});
-        assertTrue(data.size() > 0);
+        assertFalse(data.isEmpty());
     }
 
     @Test
