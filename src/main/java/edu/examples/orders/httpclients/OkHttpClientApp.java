@@ -17,6 +17,7 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.RequestBody;
 import okhttp3.Response;
+import org.jetbrains.annotations.NotNull;
 
 public class OkHttpClientApp {
 	
@@ -34,10 +35,10 @@ public class OkHttpClientApp {
 
 		Call call = client.newCall(request);
 		call.enqueue(new Callback() {
-	        public void onResponse(Call call, Response response) 
+	        public void onResponse(@NotNull Call call, @NotNull Response response)
 	          throws IOException {
-	        	System.out.println(response.body().string());
-//				System.exit(1);
+                assert response.body() != null;
+                System.out.println(response.body().string());
 	        }
 	        
 	        public void onFailure(Call call, IOException e) {
@@ -66,12 +67,13 @@ public class OkHttpClientApp {
 			.build();
 
 		Response response = client.newCall(request).execute();
-		System.out.println(response.body().string());
+        assert response.body() != null;
+        System.out.println(response.body().string());
 		System.out.println("invokePost() completed");
 	}
 
 	private String prepareRequest() throws JsonProcessingException {
-		Map<String, String> values = new HashMap<String, String>() {
+		Map<String, String> values = new HashMap<>() {
 			{
 				put("firstName", "Martha");
 				put("lastName", "Peck");
@@ -84,8 +86,7 @@ public class OkHttpClientApp {
 		};
 
 		ObjectMapper objectMapper = new ObjectMapper();
-		String requestBody = objectMapper.writeValueAsString(values);
-		return requestBody;
+        return objectMapper.writeValueAsString(values);
 	}
 	
 	public static void main(String[] args) throws URISyntaxException, IOException {
