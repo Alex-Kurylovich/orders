@@ -12,6 +12,7 @@ public interface URLConstants {
 	public static final String URL_MANAGERS_LIST = "/managers-list";
 	public static final String URL_AGENTS_LIST = "/agents-list";
 	public static final String URL_TECHNICIANS_LIST = "/technicians-list";
+	public static final String URL_CUSTOMER = "/customer";
 
 	public static final String URL_GET = "http://localhost:8080/api/staff-list";
 	public static final String URL_POST = "http://localhost:8080/api/manager-save";

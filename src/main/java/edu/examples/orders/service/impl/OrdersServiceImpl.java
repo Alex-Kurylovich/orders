@@ -1,13 +1,17 @@
 package edu.examples.orders.service.impl;
 
+import edu.examples.orders.commons.I18Constants;
 import edu.examples.orders.domain.*;
+import edu.examples.orders.exception.NoSuchElementFoundException;
 import edu.examples.orders.repository.CustomerRepository;
 import edu.examples.orders.repository.StaffRepository;
 import edu.examples.orders.service.OrdersService;
+import org.springframework.context.MessageSource;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
+import java.util.Locale;
 
 @Component
 public class OrdersServiceImpl implements OrdersService {
@@ -16,10 +20,13 @@ public class OrdersServiceImpl implements OrdersService {
     private StaffRepository staffRepository;
     final
     private CustomerRepository customerRepository;
+    final
+    private MessageSource messageSource;
 
-    public OrdersServiceImpl(StaffRepository staffRepository, CustomerRepository customerRepository) {
+    public OrdersServiceImpl(StaffRepository staffRepository, CustomerRepository customerRepository, MessageSource messageSource) {
         this.staffRepository = staffRepository;
         this.customerRepository = customerRepository;
+        this.messageSource = messageSource;
     }
 
     public List<Staff> getStaff() {
@@ -58,4 +65,14 @@ public class OrdersServiceImpl implements OrdersService {
         customerRepository.save(c);
     }
 
+    public Customer getCustomerById(Long id) {
+        return customerRepository.findById(id).orElseThrow(() ->
+                new NoSuchElementFoundException(getLocalMessage(I18Constants.NO_ITEM_FOUND.getKey(), String.valueOf(id))));
+    }
+
+    private String getLocalMessage(String key, String... params){
+        return messageSource.getMessage(key,
+                params,
+                Locale.ENGLISH);
+    }
 }
