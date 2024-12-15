@@ -29,4 +29,8 @@ public interface OrdersService {
 
     Customer getCustomerById(Long id);
 
+    // Appointment
+
+    Appointment getAppointmentById(Long id);
+
 }

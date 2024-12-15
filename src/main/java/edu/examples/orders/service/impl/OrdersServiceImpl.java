@@ -3,6 +3,7 @@ package edu.examples.orders.service.impl;
 import edu.examples.orders.commons.I18Constants;
 import edu.examples.orders.domain.*;
 import edu.examples.orders.exception.NoSuchElementFoundException;
+import edu.examples.orders.repository.AppointmentRepository;
 import edu.examples.orders.repository.CustomerRepository;
 import edu.examples.orders.repository.StaffRepository;
 import edu.examples.orders.service.OrdersService;
@@ -21,11 +22,14 @@ public class OrdersServiceImpl implements OrdersService {
     final
     private CustomerRepository customerRepository;
     final
+    private AppointmentRepository appointmentRepository;
+    final
     private MessageSource messageSource;
 
-    public OrdersServiceImpl(StaffRepository staffRepository, CustomerRepository customerRepository, MessageSource messageSource) {
+    public OrdersServiceImpl(StaffRepository staffRepository, CustomerRepository customerRepository, AppointmentRepository appointmentRepository, MessageSource messageSource) {
         this.staffRepository = staffRepository;
         this.customerRepository = customerRepository;
+        this.appointmentRepository = appointmentRepository;
         this.messageSource = messageSource;
     }
 
@@ -67,6 +71,11 @@ public class OrdersServiceImpl implements OrdersService {
 
     public Customer getCustomerById(Long id) {
         return customerRepository.findById(id).orElseThrow(() ->
+                new NoSuchElementFoundException(getLocalMessage(I18Constants.NO_ITEM_FOUND.getKey(), String.valueOf(id))));
+    }
+
+    public Appointment getAppointmentById(Long id) {
+        return appointmentRepository.findById(id).orElseThrow(() ->
                 new NoSuchElementFoundException(getLocalMessage(I18Constants.NO_ITEM_FOUND.getKey(), String.valueOf(id))));
     }
 

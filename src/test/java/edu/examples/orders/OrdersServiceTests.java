@@ -99,6 +99,14 @@ public class OrdersServiceTests {
         log.info(customer.toString());
     }
 
+    @Test
+    public void testServiceGetAppointment() throws Exception {
+
+        Appointment appointment = ordersService.getAppointmentById(1L);
+        assertNotNull(appointment);
+        log.info(appointment.toString());
+    }
+
     private Manager createManager() {
         Manager staff = new Manager();
         staff.setFirstName("Martha");
