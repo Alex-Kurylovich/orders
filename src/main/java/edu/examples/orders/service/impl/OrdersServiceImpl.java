@@ -13,6 +13,7 @@ import org.springframework.stereotype.Component;
 
 import java.util.List;
 import java.util.Locale;
+import java.util.Optional;
 
 @Component
 public class OrdersServiceImpl implements OrdersService {
@@ -77,6 +78,15 @@ public class OrdersServiceImpl implements OrdersService {
     public Appointment getAppointmentById(Long id) {
         return appointmentRepository.findById(id).orElseThrow(() ->
                 new NoSuchElementFoundException(getLocalMessage(I18Constants.NO_ITEM_FOUND.getKey(), String.valueOf(id))));
+    }
+
+    public Appointment makeAppointment(Appointment app) {
+        Optional<Staff> a = staffRepository.findById(app.getAgent().getId());
+        Optional<Staff> t = staffRepository.findById(app.getTechnician().getId());
+        app.setAgent((Agent) a.get());
+        app.setTechnician((Technician) t.get());
+        appointmentRepository.save(app);
+        return app;
     }
 
     private String getLocalMessage(String key, String... params){

@@ -2,10 +2,7 @@ package edu.examples.orders;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import edu.examples.orders.domain.Agent;
-import edu.examples.orders.domain.Customer;
-import edu.examples.orders.domain.Manager;
-import edu.examples.orders.domain.Technician;
+import edu.examples.orders.domain.*;
 import edu.examples.orders.dto.StaffRole;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -172,6 +169,23 @@ public class OrdersApplicationTests {
         assertNotNull(resultString);
     }
 
+    @Test
+    public void testMakeAppointment() throws Exception {
+        ObjectMapper objectMapper = new ObjectMapper();
+        String body = objectMapper.writeValueAsString(createAppointment());
+
+        MvcResult result = mockMvc.perform(MockMvcRequestBuilders.post("/api/make-appointment")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(body))
+                .andDo(print())
+                .andExpect(status().isOk())
+                .andReturn();
+
+        String resultString = result.getResponse().getContentAsString();
+
+        assertNotNull(resultString);
+    }
+
     private Manager createManager() {
         Manager request = new Manager();
         request.setFirstName("Martha");
@@ -219,5 +233,16 @@ public class OrdersApplicationTests {
         request.setProvince("Ontario");
         request.setZipCode("M8V3B6");
         return request;
+    }
+
+
+    private Appointment createAppointment() {
+        Agent a = new Agent(2L);
+        Technician t = new Technician(5L);
+        Appointment appointment = new Appointment();
+        appointment.setAgent(a);
+        appointment.setTechnician(t);
+        appointment.setReason("Help me please");
+        return appointment;
     }
 }

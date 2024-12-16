@@ -30,19 +30,19 @@ public class OrdersServiceTests {
     public void testServiceGetStaff() throws Exception {
         List<Staff> staffs = ordersService.getStaff();
         log.info(staffs.toString());
-        assertTrue(staffs.size() == 6);
+        assertEquals(6, staffs.size());
 
         List<Manager> managers = ordersService.getManagers();
         log.info(managers.toString());
-        assertTrue(managers.size() == 1);
+        assertEquals(1, managers.size());
 
         List<Agent> agents = ordersService.getAgents();
         log.info(agents.toString());
-        assertTrue(agents.size() == 2);
+        assertEquals(2, agents.size());
 
         List<Technician> technicians = ordersService.getTechnicians();
         log.info(technicians.toString());
-        assertTrue(technicians.size() == 3);
+        assertEquals(3, technicians.size());
     }
 
     @Test
@@ -100,9 +100,9 @@ public class OrdersServiceTests {
     }
 
     @Test
-    public void testServiceGetAppointment() throws Exception {
+    public void testServiceMakeAppointment() throws Exception {
 
-        Appointment appointment = ordersService.getAppointmentById(1L);
+        Appointment appointment = ordersService.makeAppointment(createAppointment());
         assertNotNull(appointment);
         log.info(appointment.toString());
     }
@@ -142,4 +142,15 @@ public class OrdersServiceTests {
         staff.setDetails("Technician details - Danielle");
         return staff;
     }
+
+    private Appointment createAppointment() {
+        Agent a = new Agent(2L);
+        Technician t = new Technician(5L);
+        Appointment appointment = new Appointment();
+        appointment.setAgent(a);
+        appointment.setTechnician(t);
+        appointment.setReason("Help me please");
+        return appointment;
+    }
+
 }

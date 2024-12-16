@@ -33,4 +33,5 @@ public interface OrdersService {
 
     Appointment getAppointmentById(Long id);
 
+    public Appointment makeAppointment(Appointment app);
 }

@@ -10,7 +10,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
 
 @Slf4j
 @RestController
@@ -95,6 +94,19 @@ public class OrdersController {
     public ResponseEntity<?> getCustomer(@PathVariable Long id) {
         log.info("OrdersController:  get customer");
         Customer resource = ordersService.getCustomerById(id);
+        return ResponseEntity.ok(resource);
+    }
+
+    @GetMapping(URLConstants.URL_APPOINTMENT + "/{id}")
+    public ResponseEntity<?> getAppointment(@PathVariable Long id) {
+        log.info("OrdersController:  get appointment");
+        Appointment resource = ordersService.getAppointmentById(id);
+        return ResponseEntity.ok(resource);
+    }
+
+    @PostMapping(path = URLConstants.URL_MAKE_APPOINTMENT, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<?>  makeAppointment(@RequestBody Appointment app) {
+        Appointment resource = ordersService.makeAppointment(app);
         return ResponseEntity.ok(resource);
     }
 }

@@ -11,10 +11,18 @@ import java.util.List;
 @Data
 public class Agent extends Staff {
 
+    public Agent() {
+    }
+
+    public Agent(Long id ) {
+        this.setId(id);
+    }
+
     @Column
     private String details;
 
     @ToString.Exclude
     @OneToMany(mappedBy = "agent", cascade = CascadeType.ALL)
     private List<Customer> customers;
+
 }

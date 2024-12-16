@@ -9,6 +9,13 @@ import javax.persistence.Entity;
 @Data
 public class Technician extends Staff {
 
+    public Technician() {
+    }
+
+    public Technician(Long id ) {
+        this.setId(id);
+    }
+
     @Column
     private String details;
 }
