@@ -2,10 +2,7 @@ package edu.examples.orders;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import edu.examples.orders.domain.Agent;
-import edu.examples.orders.domain.Customer;
-import edu.examples.orders.domain.Manager;
-import edu.examples.orders.domain.Technician;
+import edu.examples.orders.domain.*;
 import edu.examples.orders.dto.StaffRole;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,8 +18,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 
 import static java.nio.charset.StandardCharsets.UTF_8;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -46,7 +42,7 @@ public class OrdersApplicationTests {
         String resulAsString = result.getResponse().getContentAsString();
         ObjectMapper objectMapper = new ObjectMapper();
         List<?> data = objectMapper.readValue(resulAsString, new TypeReference<List<?>>(){});
-        assertTrue(data.size() > 0);
+        assertFalse(data.isEmpty());
     }
 
     @Test
@@ -111,7 +107,7 @@ public class OrdersApplicationTests {
         String resulAsString = result.getResponse().getContentAsString();
         ObjectMapper objectMapper = new ObjectMapper();
         List<Manager> data = objectMapper.readValue(resulAsString, new TypeReference<List<Manager>>(){});
-        assertTrue(data.size() > 0);
+        assertFalse(data.isEmpty());
     }
 
     @Test
@@ -125,7 +121,7 @@ public class OrdersApplicationTests {
         String resulAsString = result.getResponse().getContentAsString();
         ObjectMapper objectMapper = new ObjectMapper();
         List<Agent> data = objectMapper.readValue(resulAsString, new TypeReference<List<Agent>>(){});
-        assertTrue(data.size() > 0);
+        assertFalse(data.isEmpty());
     }
 
     @Test
@@ -139,7 +135,7 @@ public class OrdersApplicationTests {
         String resulAsString = result.getResponse().getContentAsString();
         ObjectMapper objectMapper = new ObjectMapper();
         List<Technician> data = objectMapper.readValue(resulAsString, new TypeReference<List<Technician>>(){});
-        assertTrue(data.size() > 0);
+        assertFalse(data.isEmpty());
     }
 
     @Test
@@ -153,7 +149,7 @@ public class OrdersApplicationTests {
         String resulAsString = result.getResponse().getContentAsString();
         ObjectMapper objectMapper = new ObjectMapper();
         List<Customer> data = objectMapper.readValue(resulAsString, new TypeReference<List<Customer>>(){});
-        assertTrue(data.size() > 0);
+        assertFalse(data.isEmpty());
     }
 
     @Test
@@ -162,6 +158,23 @@ public class OrdersApplicationTests {
         String body = objectMapper.writeValueAsString(createCustomer());
 
         MvcResult result = mockMvc.perform(MockMvcRequestBuilders.post("/api/customer-save")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(body))
+                .andDo(print())
+                .andExpect(status().isOk())
+                .andReturn();
+
+        String resultString = result.getResponse().getContentAsString();
+
+        assertNotNull(resultString);
+    }
+
+    @Test
+    public void testMakeAppointment() throws Exception {
+        ObjectMapper objectMapper = new ObjectMapper();
+        String body = objectMapper.writeValueAsString(createAppointment());
+
+        MvcResult result = mockMvc.perform(MockMvcRequestBuilders.post("/api/make-appointment")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(body))
                 .andDo(print())
@@ -220,5 +233,16 @@ public class OrdersApplicationTests {
         request.setProvince("Ontario");
         request.setZipCode("M8V3B6");
         return request;
+    }
+
+
+    private Appointment createAppointment() {
+        Agent a = new Agent(2L);
+        Technician t = new Technician(5L);
+        Appointment appointment = new Appointment();
+        appointment.setAgent(a);
+        appointment.setTechnician(t);
+        appointment.setReason("Help me please");
+        return appointment;
     }
 }

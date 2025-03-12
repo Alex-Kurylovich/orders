@@ -3,6 +3,7 @@ package edu.examples.orders.service;
 import edu.examples.orders.domain.*;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface OrdersService {
 
@@ -25,4 +26,12 @@ public interface OrdersService {
     Customer saveCustomer(Customer customer);
 
     void saveAgentCustomer(Agent a, Customer c);
+
+    Customer getCustomerById(Long id);
+
+    // Appointment
+
+    Appointment getAppointmentById(Long id);
+
+    public Appointment makeAppointment(Appointment app);
 }

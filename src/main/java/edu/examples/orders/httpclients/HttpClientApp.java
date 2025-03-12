@@ -40,7 +40,6 @@ public class HttpClientApp {
 			String requestBody = prepareRequest();
 
 			var client = HttpClient.newBuilder()
-//					.sslContext(insecureContext())
 					.build();
 
 			HttpRequest request = HttpRequest.newBuilder().uri(URI.create(URLConstants.URL_POST))
@@ -52,13 +51,12 @@ public class HttpClientApp {
 
 			System.out.println(response.statusCode() + "\n" + response.body());
 		} catch (IOException | InterruptedException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
 
 	private String prepareRequest() throws JsonProcessingException {
-		Map<String, String> values = new HashMap<String, String>() {
+		Map<String, String> values = new HashMap<>() {
 			{
         		put("firstName", "Martha");
         		put("lastName", "Peck");
@@ -71,35 +69,12 @@ public class HttpClientApp {
 		};
 
 		ObjectMapper objectMapper = new ObjectMapper();
-		String requestBody = objectMapper.writeValueAsString(values);
-		return requestBody;
+        return objectMapper.writeValueAsString(values);
 	}
 
 	public static void main(String[] args) throws URISyntaxException {
-//		System.setProperty("jdk.internal.httpclient.disableHostnameVerification", Boolean.TRUE.toString());
-//		System.setProperty("maven.wagon.http.ssl.insecure", Boolean.TRUE.toString());
-//		System.setProperty("maven.wagon.http.ssl.allowall", Boolean.TRUE.toString());
-//		System.setProperty("maven.wagon.http.ssl.ignore.validity.dates", Boolean.TRUE.toString());
 		var client = new HttpClientApp();
 		client.invokeGet();
 		client.invokePost();
 	}
-
-//	static SSLContext insecureContext() {
-//		TrustManager[] noopTrustManager = new TrustManager[]{
-//				new X509TrustManager() {
-//					public void checkClientTrusted(X509Certificate[] xcs, String string) {}
-//					public void checkServerTrusted(X509Certificate[] xcs, String string) {}
-//					public X509Certificate[] getAcceptedIssuers() {
-//						return null;
-//					}
-//				}
-//		};
-//		try {
-//			SSLContext sc = SSLContext.getInstance("ssl");
-//			sc.init(null, noopTrustManager, null);
-//			return sc;
-//		} catch (KeyManagementException | NoSuchAlgorithmException ex) {}
-//		return null;
-//	}
 }

@@ -11,7 +11,7 @@ import org.springframework.data.querydsl.QuerydslPredicateExecutor;
 
 import java.util.List;
 
-public interface StaffRepository extends JpaRepository<Staff, Integer>, JpaSpecificationExecutor<Staff>, QuerydslPredicateExecutor<Staff> {
+public interface StaffRepository extends JpaRepository<Staff, Long>, JpaSpecificationExecutor<Staff>, QuerydslPredicateExecutor<Staff> {
 
     @Query("SELECT a FROM Agent a INNER JOIN Staff s ON a.id = s.id")
     List<Agent> getAgents();

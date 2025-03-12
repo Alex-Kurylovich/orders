@@ -78,15 +78,35 @@ public class OrdersController {
 
     @GetMapping(path = URLConstants.URL_CUSTOMERS_LIST, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<?> listCustomers() {
-        log.info("AgentController:  list customers");
+        log.info("OrdersController:  list customers");
         List<Customer> resource = ordersService.getCustomers();
         return ResponseEntity.ok(resource);
     }
 
     @PostMapping(path = URLConstants.URL_CUSTOMER_SAVE, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<?> saveCustomer(@RequestBody Customer customer) {
-        log.info("AgentController:  add customer");
+        log.info("OrdersController:  add customer");
         Customer resource = ordersService.saveCustomer(customer);
+        return ResponseEntity.ok(resource);
+    }
+
+    @GetMapping(URLConstants.URL_CUSTOMER + "/{id}")
+    public ResponseEntity<?> getCustomer(@PathVariable Long id) {
+        log.info("OrdersController:  get customer");
+        Customer resource = ordersService.getCustomerById(id);
+        return ResponseEntity.ok(resource);
+    }
+
+    @GetMapping(URLConstants.URL_APPOINTMENT + "/{id}")
+    public ResponseEntity<?> getAppointment(@PathVariable Long id) {
+        log.info("OrdersController:  get appointment");
+        Appointment resource = ordersService.getAppointmentById(id);
+        return ResponseEntity.ok(resource);
+    }
+
+    @PostMapping(path = URLConstants.URL_MAKE_APPOINTMENT, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<?>  makeAppointment(@RequestBody Appointment app) {
+        Appointment resource = ordersService.makeAppointment(app);
         return ResponseEntity.ok(resource);
     }
 }

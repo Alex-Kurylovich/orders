@@ -3,6 +3,7 @@ package edu.examples.orders.httpclients;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Future;
 
@@ -58,8 +59,6 @@ public class ApacheHttpClientApp {
 
 						@Override
 						public void cancelled() {
-							// TODO Auto-generated method stub
-							
 						}
                     	
                     });
@@ -77,7 +76,7 @@ public class ApacheHttpClientApp {
     
     public void invokePost() {
     	
-    	StringEntity stringEntity = new StringEntity(prepareRequest());
+    	StringEntity stringEntity = new StringEntity(Objects.requireNonNull(prepareRequest()));
     	HttpPost httpPost = new HttpPost(URLConstants.URL_POST);
 
         httpPost.setEntity(stringEntity);
@@ -101,14 +100,13 @@ public class ApacheHttpClientApp {
                 }
 
         } catch (ParseException | IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} 
         
     }
     
 	private String prepareRequest() {
-		Map<String, String> values = new HashMap<String, String>() {
+		Map<String, String> values = new HashMap<>() {
 			{
 				put("firstName", "Martha");
 				put("lastName", "Peck");
@@ -125,7 +123,6 @@ public class ApacheHttpClientApp {
 		try {
 			requestBody = objectMapper.writeValueAsString(values);
 		} catch (JsonProcessingException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 			return null;
 		}

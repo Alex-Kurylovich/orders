@@ -13,4 +13,12 @@ public class Appointment {
     @Column
     private long id;
 
+    @OneToOne(cascade = CascadeType.REFRESH)
+    private Agent agent;
+
+    @OneToOne(cascade = CascadeType.REFRESH)
+    private Technician technician;
+
+    @Column
+    private String reason;
 }
