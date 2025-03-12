@@ -25,5 +25,5 @@ VALUES ('Jennifer ', 'Johnson', 'customer1@gmail.com', '416-749-6668', '1432 Isl
        ('John ', 'Ferguson', 'customer3@gmail.com', '250-654-5431', '3449 Burdett Avenue', 'Sidney', 'British Columbia', 'V8L1X3', NULL),
        ('Michael ', 'Hensley', 'customer4@gmail.com', '519-291-8453', '2783 9th Avenue', 'Listowel', 'Ontario', 'N4W2H8', NULL);
 
-INSERT INTO appointment (ID, AGENT_ID, TECHNICIAN_ID, REASON)
-VALUES (1,2,4, 'FIX MY HARDWARE');
+INSERT INTO appointment (ID, AGENT_ID, TECHNICIAN_ID, REASON, DATE, TIME)
+VALUES (1,2,4, 'FIX MY HARDWARE', '2024-12-20', '10:00');
