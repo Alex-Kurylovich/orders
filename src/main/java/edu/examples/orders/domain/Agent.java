@@ -1,11 +1,13 @@
 package edu.examples.orders.domain;
 
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.ToString;
 
 import javax.persistence.*;
 import java.util.List;
 
+@EqualsAndHashCode(callSuper = true)
 @ToString
 @Entity
 @Data
